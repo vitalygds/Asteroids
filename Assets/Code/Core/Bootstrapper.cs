@@ -1,5 +1,6 @@
 ﻿using Infrastructure;
 using Input;
+using Unit;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
@@ -23,6 +24,7 @@ namespace Core
             _locator.Register<InputSystemUIInputModule>(_inputModule);
             new InfrastructureScope(_locator);
             new InputScope(_locator);
+            new UnitScope(_locator);
             
             
             

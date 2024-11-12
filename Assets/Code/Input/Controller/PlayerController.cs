@@ -12,6 +12,7 @@ namespace Input
         protected override void Subscribe(InputMap controller)
         {
             controller.Player.Move.performed += OnMove;
+            controller.Player.Move.canceled += OnMove;
             controller.Player.Fire1.performed += OnFire1;
             controller.Player.Fire1.canceled += OnFire1;
             controller.Player.Fire2.performed += OnFire2;
@@ -21,6 +22,7 @@ namespace Input
         protected override void OnDispose(InputMap controller)
         {
             controller.Player.Move.performed -= OnMove;
+            controller.Player.Move.canceled -= OnMove;
             controller.Player.Fire1.performed -= OnFire1;
             controller.Player.Fire1.canceled -= OnFire1;
             controller.Player.Fire2.performed -= OnFire2;
