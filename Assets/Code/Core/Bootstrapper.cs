@@ -23,6 +23,10 @@ namespace Core
             _locator.Register<InputSystemUIInputModule>(_inputModule);
             new InfrastructureScope(_locator);
             new InputScope(_locator);
+            
+            
+            
+            _eventSystem.gameObject.SetActive(true);
         }
         
         private void OnDestroy()
