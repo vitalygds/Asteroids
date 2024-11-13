@@ -2,6 +2,7 @@ namespace Weapon
 {
     public interface IWeaponModel
     {
-        void Attack();
+        bool Attack();
+        void Destroy();
     }
 }

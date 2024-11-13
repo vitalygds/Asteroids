@@ -8,6 +8,7 @@ namespace Weapon
     {
         private readonly IDisposable _updateSub;
         private readonly List<IUpdatableUnit> _controllers;
+        private bool _clearProcess;
 
         public WeaponUpdateManager(ITickController tickController)
         {
@@ -29,6 +30,7 @@ namespace Weapon
 
         public void Clear()
         {
+            _clearProcess = true;
             for (int i = 0; i < _controllers.Count; i++)
             {
                 IUpdatableUnit controller = _controllers[i];
@@ -37,10 +39,13 @@ namespace Weapon
             }
 
             _controllers.Clear();
+            _clearProcess = false;
         }
 
         private void UnregisterController(IUpdatableUnit controller)
         {
+            if (_clearProcess)
+                return;
             controller.OnDestroy -= UnregisterController;
             _controllers.Remove(controller);
         }

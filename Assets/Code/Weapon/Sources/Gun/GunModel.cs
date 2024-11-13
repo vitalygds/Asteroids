@@ -14,6 +14,7 @@ namespace Weapon
         private readonly IPoolService _poolService;
         private readonly IWeaponUpdateManager _updateManager;
         private readonly List<ProjectileController> _controllers;
+        private bool _destroyed;
 
         public GunModel(GunConfig config, IWeaponUser owner, IWeaponTargetProvider targetProvider, IPoolService poolService)
         {
@@ -24,7 +25,7 @@ namespace Weapon
             _controllers = WeaponCollections.GetList<ProjectileController>();
         }
 
-        public void Attack()
+        public bool Attack()
         {
             Vector3 startPosition = _targetProvider.StartPosition;
             Vector3 endPosition = _targetProvider.EndPosition;
@@ -33,6 +34,7 @@ namespace Weapon
                 (endPosition - startPosition).normalized);
             controller.OnDestroy += RemoveController;
             _controllers.Add(controller);
+            return true;
         }
 
         private void RemoveController(ProjectileController controller)
@@ -50,6 +52,9 @@ namespace Weapon
         public void Destroy()
         {
             OnDestroy?.Invoke(this);
+            if (_destroyed)
+                return;
+            _destroyed = true;
             for (int i = 0; i < _controllers.Count; i++)
             {
                 ReleaseController(_controllers[i]);

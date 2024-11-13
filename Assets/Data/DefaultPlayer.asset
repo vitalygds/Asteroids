@@ -20,3 +20,4 @@ MonoBehaviour:
   _maxSpeed: 10
   _weapons:
   - PlayerGun
+  - PlayerLaser

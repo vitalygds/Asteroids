@@ -14,9 +14,13 @@ namespace Weapon
             locator.Register<IWeaponService>(service);
         }
 
-        private IWeaponFactory[] ScopeFactories(IServiceLocator locator, IWeaponUpdateManager updateManager)
+        private static IWeaponFactory[] ScopeFactories(IServiceLocator locator, IWeaponUpdateManager updateManager)
         {
-            return new[] {new GunFactory(updateManager, locator.Resolve<IPoolService>())};
+            return new IWeaponFactory[] 
+            {
+                new GunFactory(updateManager, locator.Resolve<IPoolService>()), 
+                new LaserFactory(updateManager)
+            };
         }
     }
 }

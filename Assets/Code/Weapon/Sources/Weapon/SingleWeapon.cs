@@ -10,7 +10,7 @@ namespace Weapon
         private float _time;
         private bool _charged;
         private bool _isActive;
-        
+
         public SingleWeapon(IWeaponModel model, WeaponConfig config)
         {
             _model = model;
@@ -19,6 +19,7 @@ namespace Weapon
 
         public void Destroy()
         {
+            _model.Destroy();
             OnDestroy?.Invoke(this);
         }
 
@@ -29,9 +30,11 @@ namespace Weapon
         
         private void Attack()
         {
-            _charged = false;
-           _model.Attack();
-            _time = _config.ReloadTime;
+            if (_model.Attack())
+            {
+                _charged = false;
+                _time = _config.ReloadTime;
+            }
         }
 
         void IUpdatableUnit.Update(float deltaTime)
