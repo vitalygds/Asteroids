@@ -5,7 +5,7 @@ namespace Input
 {
     public sealed class InputScope
     {
-        public InputScope(IServiceLocator locator)
+        public static void Build(IServiceLocator locator)
         {
             InputSystemUIInputModule inputModule = locator.Resolve<InputSystemUIInputModule>();
             ITickController tickController = locator.Resolve<ITickController>();

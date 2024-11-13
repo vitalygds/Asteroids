@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2015374dbc494dbfa81df20c40b7de49, type: 3}
   m_Name: PlayerLaser
   m_EditorClassIdentifier: 
-  _reloadTime: 2
+  _reloadTime: 0
   _lenght: 30
   _width: 0.2
-  _chargeTime: 5
+  _chargeTime: 0
   _maxCharges: 5
   _startCharges: 2
-  _color: {r: 1, g: 0, b: 0, a: 1}
+  _color: {r: 1, g: 0, b: 0.87058824, a: 0.8745098}
   _visualTime: 0.3

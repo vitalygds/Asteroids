@@ -11,17 +11,22 @@ namespace Weapon
         private readonly GunConfig _config;
         private readonly IWeaponUser _owner;
         private readonly IWeaponTargetProvider _targetProvider;
+        private readonly int _targetMask;
         private readonly IPoolService _poolService;
+        private readonly IWeaponDamageMediator _damageMediator;
         private readonly IWeaponUpdateManager _updateManager;
         private readonly List<ProjectileController> _controllers;
         private bool _destroyed;
 
-        public GunModel(GunConfig config, IWeaponUser owner, IWeaponTargetProvider targetProvider, IPoolService poolService)
+        public GunModel(GunConfig config, IWeaponUser owner, IWeaponTargetProvider targetProvider, int targetMask, IPoolService poolService,
+            IWeaponDamageMediator damageMediator)
         {
             _config = config;
             _owner = owner;
             _targetProvider = targetProvider;
+            _targetMask = targetMask;
             _poolService = poolService;
+            _damageMediator = damageMediator;
             _controllers = WeaponCollections.GetList<ProjectileController>();
         }
 
@@ -30,8 +35,9 @@ namespace Weapon
             Vector3 startPosition = _targetProvider.StartPosition;
             Vector3 endPosition = _targetProvider.EndPosition;
             TriggerView instance = _poolService.Instantiate<TriggerView>(_config.ProjectilePrefab, startPosition, Quaternion.identity);
-            ProjectileController controller = new ProjectileController(instance, _config.ProjectileSpeed, _config.ProjectileLifetime,
-                (endPosition - startPosition).normalized);
+            instance.SetInteractiveLayerMask(_targetMask);
+            ProjectileController controller = new ProjectileController(_owner, instance, _config.ProjectileSpeed, _config.ProjectileLifetime,
+                (endPosition - startPosition).normalized, _damageMediator);
             controller.OnDestroy += RemoveController;
             _controllers.Add(controller);
             return true;

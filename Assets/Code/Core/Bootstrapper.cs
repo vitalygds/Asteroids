@@ -23,10 +23,11 @@ namespace Core
             _locator = new ServiceLocator();
             _locator.Register<EventSystem>(_eventSystem);
             _locator.Register<InputSystemUIInputModule>(_inputModule);
-            new InfrastructureScope(_locator);
-            new InputScope(_locator);
-            new WeaponScope(_locator);
-            new UnitScope(_locator);
+            InfrastructureScope.Build(_locator);
+            InputScope.Build(_locator);
+            UnitScope.Build(_locator);
+            WeaponScope.Build(_locator);
+            UnitScope.Complete(_locator);
 
 
             _eventSystem.gameObject.SetActive(true);

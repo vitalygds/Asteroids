@@ -1,6 +1,6 @@
 namespace Weapon
 {
-    public interface IWeaponUser
+    public interface IDamageableView
     {
         uint Id { get; }
     }

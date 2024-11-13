@@ -29,12 +29,14 @@ namespace Unit
         {
             PlayerConfig config = _configLoader.Load<PlayerConfig>(unitId);
             uint id = _manager.GetNextId();
-            Transform view = _poolService.Instantiate<Transform>(config.Prefab, position, rotation);
-            Player player = new Player(id, _poolService, view);
+            UnitView view = _poolService.Instantiate<UnitView>(config.Prefab, position, rotation);
+            view.Initialize(id, LayerUtils.PlayerLayer);
+            
+            Player player = new Player(id, _poolService, view.transform);
 
-            PlayerAttackComponent attackComponent = new PlayerAttackComponent(player, view);
+            PlayerAttackComponent attackComponent = new PlayerAttackComponent(player, view.transform);
             player.AddComponent(attackComponent);
-            WeaponCreationArgs weaponArgs = new WeaponCreationArgs(attackComponent, attackComponent);
+            WeaponCreationArgs weaponArgs = new WeaponCreationArgs(attackComponent, attackComponent, LayerUtils.EnemyMask);
             for (int i = 0; i < config.Weapons.Count; i++)
             {
                 string weaponId = config.Weapons[i];
@@ -43,7 +45,7 @@ namespace Unit
             }
 
 
-            PlayerMoveComponent moveComponent = new PlayerMoveComponent(config, view, _tickController);
+            PlayerMoveComponent moveComponent = new PlayerMoveComponent(config, view.transform, _tickController);
             player.AddComponent(moveComponent);
 
             PlayerInputComponent inputComponent = new PlayerInputComponent(moveComponent, attackComponent, _inputService);

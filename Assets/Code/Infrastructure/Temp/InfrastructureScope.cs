@@ -2,7 +2,7 @@ namespace Infrastructure
 {
     public sealed class InfrastructureScope
     {
-        public InfrastructureScope(IServiceLocator locator)
+        public static void Build(IServiceLocator locator)
         {
             TimeManager timeManager = new TimeManager();
             locator.Register<ITimeManager>(timeManager);

@@ -1,7 +1,7 @@
 {
     "name": "Unit.Infrastructure",
     "rootNamespace": "",
-    "references": [],
+    "references": ["GUID:b7fb7c08788844848d70d34c5a1f41df"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
