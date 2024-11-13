@@ -27,7 +27,7 @@ namespace Weapon
             _buffer = buffer;
             _charges = config.StartCharges;
             _timer = config.ChargeTime;
-            _filter = new ContactFilter2D {useLayerMask = true, layerMask = targetMask};
+            _filter = new ContactFilter2D {useLayerMask = true, layerMask = targetMask, useTriggers = true};
         }
 
         public void Destroy()
