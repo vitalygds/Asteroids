@@ -64,7 +64,6 @@ namespace Unit
             _currentDirection = Vector2.Lerp(_currentDirection, desiredDirection, _config.AngularSpeed * deltaTime);
             _currentPosition += (Vector3) _currentDirection * (_currentSpeed * deltaTime);
             
-            
             _view.position = _currentPosition;
             _view.rotation = _currentRotation;
         }

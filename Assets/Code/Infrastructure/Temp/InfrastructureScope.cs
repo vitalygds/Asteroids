@@ -9,6 +9,7 @@ namespace Infrastructure
             TickController tickController = new TickController(timeManager);
             locator.Register<ITickController>(tickController);
             locator.Register<IPoolService>(new PoolService(tickController));
+            locator.Register<IRandomizer>(new Randomizer());
         }
     }
 }
