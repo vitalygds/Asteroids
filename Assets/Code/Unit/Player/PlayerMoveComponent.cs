@@ -11,11 +11,14 @@ namespace Unit
         private readonly IDisposable _updateSub;
         private Vector2 _inputDirection;
         private float _currentSpeed;
+        private float _currentRotationSpeed;
         private Vector3 _currentPosition;
         private Vector2 _currentDirection;
         private Quaternion _currentRotation;
 
-        private bool _isAccelerationState;
+        private bool _accelerate;
+        private bool _dragRotation;
+        private float _dragRotationFactor;
 
         public PlayerMoveComponent(PlayerConfig config, Transform view, ITickController tickController)
         {
@@ -34,32 +37,36 @@ namespace Unit
         public void SetDirection(Vector2 direction)
         {
             _inputDirection = direction;
-            _isAccelerationState = direction.y != 0f;
+            _accelerate = direction.y != 0f;
+            if (Mathf.Abs(_currentRotationSpeed) < Mathf.Abs(direction.x))
+            {
+                _currentRotationSpeed += direction.x;
+            }
         }
 
-        private void Accelerate(float delta)
+        private void Accelerate(float deltaTime)
         {
-            _currentSpeed += delta;
+            _currentSpeed += deltaTime * _config.Deceleration;
             if (_currentSpeed > _config.MaxSpeed)
                 _currentSpeed = _config.MaxSpeed;
         }
 
-        private void Decelerate(float delta)
+        private void Decelerate(float deltaTime)
         {
-            _currentSpeed -= delta;
+            _currentSpeed -= deltaTime * _config.Acceleration;
             if (_currentSpeed < 0f)
                 _currentSpeed = 0f;
         }
 
         void IUpdate.UpdateController(float deltaTime)
         {
-            if (_isAccelerationState)
-                Accelerate(deltaTime * _config.Acceleration);
+            if (_accelerate)
+                Accelerate(deltaTime);
             else
-                Decelerate(deltaTime * _config.Deceleration);
-            Quaternion deltaRotation = Quaternion.Euler(0f, 0f, -_inputDirection.x * deltaTime * _config.RotationSpeed);
+                Decelerate(deltaTime);
+            Quaternion deltaRotation = Quaternion.Euler(0f, 0f, -_currentRotationSpeed * deltaTime * _config.RotationSpeed);
+            _currentRotationSpeed = Mathf.Lerp(_currentRotationSpeed, _inputDirection.x, _config.AngularDrag * deltaTime);
             _currentRotation *= deltaRotation;
-
             Vector2 desiredDirection = _currentRotation * Vector2.up;
             _currentDirection = Vector2.Lerp(_currentDirection, desiredDirection, _config.AngularSpeed * deltaTime);
             _currentPosition += (Vector3) _currentDirection * (_currentSpeed * deltaTime);
