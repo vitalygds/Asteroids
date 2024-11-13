@@ -4,6 +4,7 @@ using Unit;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
+using Weapon;
 
 namespace Core
 {
@@ -24,10 +25,10 @@ namespace Core
             _locator.Register<InputSystemUIInputModule>(_inputModule);
             new InfrastructureScope(_locator);
             new InputScope(_locator);
+            new WeaponScope(_locator);
             new UnitScope(_locator);
-            
-            
-            
+
+
             _eventSystem.gameObject.SetActive(true);
         }
         
