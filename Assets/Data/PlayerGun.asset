@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: PlayerGun
   m_EditorClassIdentifier: 
   _reloadTime: 0.5
+  _projectilePrefab: {fileID: 2491554712924490409, guid: c4deb28aaa6e054419ac3737782fc7c5, type: 3}
+  _projectileSpeed: 5
+  _projectileLifetime: 4

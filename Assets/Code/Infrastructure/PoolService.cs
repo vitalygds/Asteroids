@@ -82,7 +82,7 @@ namespace Infrastructure
                 return !Equals(left, right);
             }
         }
-        
+
         private readonly Dictionary<string, ObjectPool<GameObject>> _poolMap;
         private readonly List<LifeTimeHandler> _lifeTimeHandlers;
         private readonly IDisposable _updateSub;
@@ -108,7 +108,7 @@ namespace Infrastructure
 
             if (!_poolMap.TryGetValue(prefab.name, out ObjectPool<GameObject> viewPool))
             {
-                viewPool = new ObjectPool<GameObject>(() => Object.Instantiate(prefab), EnableGameObject, DisableGameObject, DestroyGameObject,
+                viewPool = new ObjectPool<GameObject>(() => CreateInstance(prefab), EnableGameObject, DisableGameObject, DestroyGameObject,
                     false);
                 _poolMap[prefab.name] = viewPool;
             }
@@ -119,6 +119,7 @@ namespace Infrastructure
             {
                 _lifeTimeHandlers.Add(new LifeTimeHandler(this, view, lifeTime));
             }
+
             return view.GetOrAddComponent<T>();
         }
 
@@ -137,6 +138,13 @@ namespace Infrastructure
             {
                 Object.Destroy(gameObject);
             }
+        }
+
+        private static GameObject CreateInstance(GameObject prefab)
+        {
+            GameObject instance = Object.Instantiate(prefab);
+            instance.name = prefab.name;
+            return instance;
         }
 
         private static void DisableGameObject(GameObject gameObject) => gameObject.SetActive(false);

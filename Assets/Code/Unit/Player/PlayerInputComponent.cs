@@ -7,11 +7,13 @@ namespace Unit
     internal sealed class PlayerInputComponent : IPlayerInputListener, IUnitComponent, IDestroyableComponent
     {
         private readonly PlayerMoveComponent _moveComponent;
+        private readonly PlayerAttackComponent _attackComponent;
         private readonly IDisposable _inputSub;
 
-        public PlayerInputComponent(PlayerMoveComponent moveComponent, IInputService inputService)
+        public PlayerInputComponent(PlayerMoveComponent moveComponent, PlayerAttackComponent attackComponent, IInputService inputService)
         {
             _moveComponent = moveComponent;
+            _attackComponent = attackComponent;
             _inputSub = inputService.AddListener(this);
         }
 
@@ -29,7 +31,7 @@ namespace Unit
 
         public void OnFire(int value, bool isPressed)
         {
-           
+            _attackComponent.SetActive(value, isPressed);
         }
     }
 }

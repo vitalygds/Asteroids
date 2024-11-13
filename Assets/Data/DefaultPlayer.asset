@@ -18,3 +18,5 @@ MonoBehaviour:
   _acceleration: 5
   _deceleration: 5
   _maxSpeed: 10
+  _weapons:
+  - PlayerGun
