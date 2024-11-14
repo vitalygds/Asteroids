@@ -52,8 +52,7 @@ namespace Unit
             ShipMoveComponent moveComponent = new ShipMoveComponent(config, view.transform, _tickController);
             unit.AddComponent(moveComponent);
 
-            IDestroyComponent destroyComponent = new DestroyComponent(unit);
-            unit.AddComponent(destroyComponent);
+            unit.AddComponent(new DestroyComponent(unit));
 
             _manager.AddUnit(unit);
             return unit;

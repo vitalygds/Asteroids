@@ -52,6 +52,9 @@ namespace Core
 
         public void Stop()
         {
+            if (!_started)
+                return;
+            _started = false;
             _updateSub?.Dispose();
             DestroyUnits();
         }

@@ -48,6 +48,7 @@ namespace Unit
             UfoTargetComponent targetComponent = new UfoTargetComponent(unit, view.transform, movementComponent, _tickController);
             unit.AddComponent(targetComponent);
 
+            unit.AddComponent(new UnitObstacleComponent(unit, view, _damageService, args.TargetLayerMask));
             if (!string.IsNullOrEmpty(config.Weapon))
             {
                 IWeapon weapon = _weaponService.CreateWeapon(config.Weapon,
