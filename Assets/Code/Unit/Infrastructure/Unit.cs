@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Unit
 {
@@ -11,15 +12,16 @@ namespace Unit
         private bool _destroyed;
 
         public uint Id { get; }
+        public Transform Transform { get; }
 
-        protected Unit(uint id)
+        protected Unit(uint id, Transform transform)
         {
             Id = id;
+            Transform = transform;
             _components = UnitCollections.GetList<IUnitComponent>();
             _componentsMap = UnitCollections.GetMap<Type, IUnitComponent>();
         }
-
-
+        
         public void Destroy()
         {
             if (_destroyed)
@@ -36,8 +38,7 @@ namespace Unit
         {
             _components.Add(component);
         }
-
-
+        
         public bool TryGetComponent<T>(out T component) where T : class, IUnitComponent
         {
             return _componentsMap.TryGetCachedComponent(_components, out component);
@@ -49,7 +50,7 @@ namespace Unit
         {
             for (int i = 0; i < _components.Count; i++)
             {
-                if (_components[i] is IDestroyableComponent destroyableComponent)
+                if (_components[i] is IDestroyable destroyableComponent)
                     destroyableComponent.Destroy();
             }
 

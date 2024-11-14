@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: UnitConfigDatabase
   m_EditorClassIdentifier: 
   _configs:
+  - {fileID: 11400000, guid: cd3d0170b69e2f24f847e26199661b01, type: 2}
+  - {fileID: 11400000, guid: e656a0522f4d55d4390f074c81ec1ff9, type: 2}
+  - {fileID: 11400000, guid: 696c2b3d5c2793744b075655f7496935, type: 2}
   - {fileID: 11400000, guid: f34199f9a5d8da741bb12e4ce5c7630b, type: 2}
+  - {fileID: 11400000, guid: 8a22ead1efa41b141a4168f361559fdd, type: 2}

@@ -5,20 +5,17 @@ using Weapon;
 
 namespace Unit
 {
-    internal sealed class PlayerAttackComponent : IUnitComponent, IDestroyableComponent, IWeaponUser, IWeaponTargetProvider
+    internal sealed class ShipAttackComponent : IAttackComponent, IDestroyable, IWeaponUser, IWeaponTargetProvider
     {
         private readonly Unit _owner;
         private readonly Transform _view;
         private readonly List<IWeapon> _weapons;
         private int _bits;
-
-
         public uint Id => _owner.Id;
-        public int Layer => LayerUtils.PlayerLayer;
         public Vector3 StartPosition => _view.position;
         public Vector3 EndPosition => _view.position + _view.up;
 
-        public PlayerAttackComponent(Unit owner, Transform view)
+        public ShipAttackComponent(Unit owner, Transform view)
         {
             _owner = owner;
             _view = view;

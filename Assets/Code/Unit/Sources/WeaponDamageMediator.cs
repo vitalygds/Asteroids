@@ -10,9 +10,16 @@ namespace Unit
         {
             _idService = idService;
         }
+
         public bool ApplyDamage(IDamageableView view, IWeaponUser from)
         {
-            return true;
+            if (_idService.GetUnitById(view.Id, out IUnit unit) && unit.TryGetComponent(out IDestroyComponent destroyComponent))
+            {
+                destroyComponent.DestroyUnit();
+                return true;
+            }
+
+            return false;
         }
     }
 }

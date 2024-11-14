@@ -4,8 +4,8 @@ using Weapon;
 
 namespace Unit
 {
-    [CreateAssetMenu(menuName = "Unit/" + nameof(PlayerConfig), fileName = nameof(PlayerConfig), order = 0)]
-    internal sealed class PlayerConfig : UnitConfig
+    [CreateAssetMenu(menuName = "Unit/" + nameof(ShipConfig), fileName = nameof(ShipConfig))]
+    internal sealed class ShipConfig : UnitConfig
     {
         [SerializeField] private float _rotationSpeed;
         [SerializeField] private float _angularSpeed;
@@ -22,5 +22,7 @@ namespace Unit
         public float Deceleration => _deceleration;
         public float MaxSpeed => _maxSpeed;
         public IReadOnlyList<string> Weapons => _weapons;
+        
+        public override UnitType Type => UnitType.Ship;
     }
 }

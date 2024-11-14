@@ -4,23 +4,24 @@ using UnityEngine;
 
 namespace Unit
 {
-    internal sealed class PlayerMoveComponent : IUpdate, IUnitComponent, IDestroyableComponent
+    internal sealed class ShipMoveComponent : IMoveComponent, IDestroyable, IUpdate
     {
-        private readonly PlayerConfig _config;
+        private readonly ShipConfig _config;
         private readonly Transform _view;
         private readonly IDisposable _updateSub;
-        private Vector2 _inputDirection;
+
         private float _currentSpeed;
         private float _currentRotationSpeed;
         private Vector3 _currentPosition;
-        private Vector2 _currentDirection;
         private Quaternion _currentRotation;
+        private Vector2 _currentDirection;
 
+        private Vector2 _targetDirectionLocal;
         private bool _accelerate;
         private bool _dragRotation;
         private float _dragRotationFactor;
 
-        public PlayerMoveComponent(PlayerConfig config, Transform view, ITickController tickController)
+        public ShipMoveComponent(ShipConfig config, Transform view, ITickController tickController)
         {
             _config = config;
             _view = view;
@@ -36,12 +37,15 @@ namespace Unit
 
         public void SetDirection(Vector2 direction)
         {
-            _inputDirection = direction;
+            _targetDirectionLocal = direction;
             _accelerate = direction.y != 0f;
-            if (Mathf.Abs(_currentRotationSpeed) < Mathf.Abs(direction.x))
-            {
-                _currentRotationSpeed += direction.x;
-            }
+            if (Mathf.Abs(_currentRotationSpeed) <= Mathf.Abs(direction.x))
+                _currentRotationSpeed = direction.x;
+        }
+
+        public void AddSpeed(float value)
+        {
+            _currentSpeed += value;
         }
 
         private void Accelerate(float deltaTime)
@@ -65,7 +69,7 @@ namespace Unit
             else
                 Decelerate(deltaTime);
             Quaternion deltaRotation = Quaternion.Euler(0f, 0f, -_currentRotationSpeed * deltaTime * _config.RotationSpeed);
-            _currentRotationSpeed = Mathf.Lerp(_currentRotationSpeed, _inputDirection.x, _config.AngularDrag * deltaTime);
+            _currentRotationSpeed = Mathf.Lerp(_currentRotationSpeed, _targetDirectionLocal.x, _config.AngularDrag * deltaTime);
             _currentRotation *= deltaRotation;
             Vector2 desiredDirection = _currentRotation * Vector2.up;
             _currentDirection = Vector2.Lerp(_currentDirection, desiredDirection, _config.AngularSpeed * deltaTime);

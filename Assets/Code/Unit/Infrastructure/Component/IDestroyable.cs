@@ -1,6 +1,6 @@
 namespace Unit
 {
-    public interface IDestroyableComponent
+    public interface IDestroyable
     {
         void Destroy();
     }

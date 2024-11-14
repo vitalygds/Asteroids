@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Unit
 {
@@ -6,6 +7,7 @@ namespace Unit
     {
         event Action<IUnit> OnDestroy;
         uint Id { get; }
+        Transform Transform { get; }
         bool TryGetComponent<T>(out T unitComponent) where T : class, IUnitComponent;
     }
 }
