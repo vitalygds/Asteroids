@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 201c8ce5e87946558e96cba6aac7c206, type: 3}
+  m_Name: LevelConfig
+  m_EditorClassIdentifier: 
+  _playerId: Ship
+  _asteroidConfig:
+    _ids:
+    - Asteroid_L
+    - Asteroid_M
+    _maxCount: 20
+    _spawnTick: 5
+    _deadZoneBound: 1.5
+  _ufoConfig:
+    _ids:
+    - Ufo
+    _maxCount: 3
+    _spawnTick: 10
+    _deadZoneBound: 5
+  _scoreConfig:
+    _unitPoints:
+    - _unitId: Asteroid_L
+      _value: 2
+    - _unitId: Asteroid_M
+      _value: 3
+    - _unitId: Asteroid_S
+      _value: 5
+    - _unitId: Ufo
+      _value: 5
+    - _unitId: Ship
+      _value: 0
+    _perSecondValue: 1

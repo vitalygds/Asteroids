@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ff9acd43b644192a4a9d9c0d79897f2, type: 3}
+  m_Name: UfoGun
+  m_EditorClassIdentifier: 
+  _reloadTime: 2
+  _projectilePrefab: {fileID: 2491554712924490409, guid: 5a2c9b478a8bf154aa31b913585a006b, type: 3}
+  _projectileSpeed: 2
+  _projectileLifetime: 4

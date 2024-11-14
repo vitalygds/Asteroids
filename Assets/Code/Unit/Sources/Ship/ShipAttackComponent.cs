@@ -46,7 +46,7 @@ namespace Unit
                 _weapons[value].SetActive(false);
             }
         }
-
+        
         private bool IsSet(int valueBit) => (_bits & valueBit) != 0;
 
 

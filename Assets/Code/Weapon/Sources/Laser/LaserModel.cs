@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Weapon
 {
-    internal sealed class LaserModel : IWeaponModel, IUpdatableUnit
+    internal sealed class LaserModel : IWeaponModel, IUpdatableUnit, IChargeableWeaponModel
     {
         public event Action<IUpdatableUnit> OnDestroy;
         private readonly LaserConfig _config;
@@ -13,8 +13,9 @@ namespace Weapon
         private readonly IWeaponDamageMediator _damageMediator;
         private readonly RaycastHit2D[] _buffer;
         private readonly ContactFilter2D _filter;
-        private int _charges;
-        private float _timer;
+        public int Charges { get; private set; }
+        public int MaxCharges => _config.MaxCharges;
+        public float Timer { get; private set; }
 
 
         public LaserModel(LaserConfig config, IWeaponUser owner, IWeaponTargetProvider targetProvider, int targetMask,
@@ -25,8 +26,8 @@ namespace Weapon
             _targetProvider = targetProvider;
             _damageMediator = damageMediator;
             _buffer = buffer;
-            _charges = config.StartCharges;
-            _timer = config.ChargeTime;
+            Charges = config.StartCharges;
+            Timer = config.ChargeTime;
             _filter = new ContactFilter2D {useLayerMask = true, layerMask = targetMask, useTriggers = true};
         }
 
@@ -37,14 +38,14 @@ namespace Weapon
 
         public bool Attack()
         {
-            if (_charges > 0)
+            if (Charges > 0)
             {
-                if (_charges == _config.MaxCharges)
+                if (Charges == _config.MaxCharges)
                 {
-                    _timer = _config.ChargeTime;
+                    Timer = _config.ChargeTime;
                 }
 
-                _charges--;
+                Charges--;
                 Vector3 startPosition = _targetProvider.StartPosition;
                 Vector3 direction = (_targetProvider.EndPosition - startPosition).normalized;
                 int targetsCount = Physics2D.CircleCast(startPosition, _config.Width * 0.5f, direction, _filter, _buffer);
@@ -68,18 +69,18 @@ namespace Weapon
 
         void IUpdatableUnit.Update(float deltaTime)
         {
-            _timer -= deltaTime;
-            if (_timer <= 0)
+            Timer -= deltaTime;
+            if (Timer <= 0)
             {
-                _charges++;
-                if (_charges >= _config.MaxCharges)
+                Charges++;
+                if (Charges >= _config.MaxCharges)
                 {
-                    _charges = _config.MaxCharges;
-                    _timer = float.PositiveInfinity;
+                    Charges = _config.MaxCharges;
+                    Timer = float.PositiveInfinity;
                 }
                 else
                 {
-                    _timer = _config.ChargeTime;
+                    Timer = _config.ChargeTime;
                 }
             }
         }

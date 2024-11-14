@@ -14,9 +14,16 @@ namespace Unit
             unit.OnDestroy += RemoveUnit;
             _unitMap.Add(unit.Id, unit);
         }
-        
-        public bool GetUnitById(uint id, out Unit unit) => _unitMap.TryGetValue(id, out unit);
 
+        public void DestroyUnit(uint id)
+        {
+            if (_unitMap.Remove(id, out Unit unit))
+            {
+                unit.OnDestroy -= RemoveUnit;
+                unit.Destroy();
+            }
+        }
+        
         public bool GetUnitById(uint id, out IUnit unit)
         {
             if (_unitMap.TryGetValue(id, out Unit viewModel))

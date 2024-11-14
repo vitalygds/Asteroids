@@ -7,6 +7,7 @@ namespace Unit
     {
         event Action<IUnit> OnDestroy;
         uint Id { get; }
+        string Name { get; }
         Transform Transform { get; }
         bool TryGetComponent<T>(out T unitComponent) where T : class, IUnitComponent;
     }

@@ -4,5 +4,6 @@ namespace Unit
     {
         uint GetNextId();
         void AddUnit(Unit unit);
+        void DestroyUnit(uint id);
     }
 }

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d2bb1969d4546ac9b5c8a1538b73fe9, type: 3}
+  m_Name: Asteroid_M
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 1433614399399467763, guid: e9d00b4d22fa8e14ab29fcd17f7e826b, type: 3}
+  _subAsteroids:
+  - Asteroid_S
+  _subsCountMin: 1
+  _subsCountMax: 3
+  _subsAdditiveForce: 3
+  _minSpeed: 2
+  _rotationSpeed: 160
+  _deceleration: 3

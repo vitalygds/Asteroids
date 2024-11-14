@@ -10,8 +10,9 @@ namespace Unit
             UnitService idService = new UnitService();
             locator.Register<IUnitManager>(idService);
             locator.Register<IUnitIdService>(idService);
-            WeaponDamageMediator damageMediator = new WeaponDamageMediator(idService);
+            UnitDamageService damageMediator = new UnitDamageService(idService);
             locator.Register<IWeaponDamageMediator>(damageMediator);
+            locator.Register<IUnitDamageService>(damageMediator);
         }
 
         public static void Complete(IServiceLocator locator)
@@ -30,11 +31,12 @@ namespace Unit
             IUnitManager unitManager = locator.Resolve<IUnitManager>();
             IPoolService poolService = locator.Resolve<IPoolService>();
             IWeaponService weaponService = locator.Resolve<IWeaponService>();
+            IUnitDamageService damageService = locator.Resolve<IUnitDamageService>();
             ShipConstructor shipConstructor = new ShipConstructor(poolService, tickController, unitManager, weaponService);
             AsteroidConstructor asteroidConstructor = new AsteroidConstructor(poolService,
-                tickController, unitManager, locator.Resolve<IRandomizer>(), locator.Resolve<IUnitSpawner>());
-            UfoConstructor ufoConstructor = new UfoConstructor(poolService, tickController, unitManager, weaponService);
-            return new IUnitConstructor[] { shipConstructor, asteroidConstructor, ufoConstructor };
+                tickController, unitManager, locator.Resolve<IRandomizer>(), locator.Resolve<IUnitSpawner>(), damageService);
+            UfoConstructor ufoConstructor = new UfoConstructor(poolService, tickController, unitManager, weaponService, damageService);
+            return new IUnitConstructor[] {shipConstructor, asteroidConstructor, ufoConstructor};
         }
     }
 }

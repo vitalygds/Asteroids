@@ -20,6 +20,8 @@ namespace Unit
         private bool _accelerate;
         private bool _dragRotation;
         private float _dragRotationFactor;
+        
+        public float Speed => _currentSpeed;
 
         public ShipMoveComponent(ShipConfig config, Transform view, ITickController tickController)
         {
@@ -33,6 +35,11 @@ namespace Unit
         public void Destroy()
         {
             _updateSub.Dispose();
+        }
+        
+        public void SetPosition(Vector3 position)
+        {
+            _currentPosition = position;
         }
 
         public void SetDirection(Vector2 direction)

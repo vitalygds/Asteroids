@@ -12,12 +12,14 @@ namespace Unit
         private bool _destroyed;
 
         public uint Id { get; }
+        public string Name { get; }
         public Transform Transform { get; }
 
-        protected Unit(uint id, Transform transform)
+        protected Unit(string name, uint id, Transform transform)
         {
             Id = id;
             Transform = transform;
+            Name = name;
             _components = UnitCollections.GetList<IUnitComponent>();
             _componentsMap = UnitCollections.GetMap<Type, IUnitComponent>();
         }

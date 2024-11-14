@@ -22,26 +22,26 @@ namespace Unit
             _weaponService = weaponService;
         }
 
-        public IUnit CreateUnit(UnitConfig config, Vector3 position, Quaternion rotation)
+        public IUnit CreateUnit(UnitCreationArgs args, UnitConfig config, Vector3 position, Quaternion rotation)
         {
             if (config is ShipConfig ufoConfig)
             {
-                return CreateUnit(ufoConfig, position, rotation);
+                return CreateUnit(args, ufoConfig, position, rotation);
             }
 
             throw new Exception("Invalid config type");
         }
 
-        private IUnit CreateUnit(ShipConfig config, Vector3 position, Quaternion rotation)
+        private IUnit CreateUnit(UnitCreationArgs args, ShipConfig config, Vector3 position, Quaternion rotation)
         {
             uint id = _manager.GetNextId();
             UnitView view = _poolService.Instantiate<UnitView>(config.Prefab, position, rotation);
-            view.Initialize(id, LayerUtils.PlayerLayer);
+            view.Initialize(id, args.OwnerLayer);
 
-            PooledUnit unit = new PooledUnit(id, _poolService, view);
+            PooledUnit unit = new PooledUnit(args.Id, id, _poolService, view);
             ShipAttackComponent attackComponent = new ShipAttackComponent(unit, view.transform);
             unit.AddComponent(attackComponent);
-            WeaponCreationArgs weaponArgs = new WeaponCreationArgs(attackComponent, attackComponent, LayerUtils.EnemyMask);
+            WeaponCreationArgs weaponArgs = new WeaponCreationArgs(attackComponent, attackComponent, args.TargetLayerMask);
             for (int i = 0; i < config.Weapons.Count; i++)
             {
                 string weaponId = config.Weapons[i];
