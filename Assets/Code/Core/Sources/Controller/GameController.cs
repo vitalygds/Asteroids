@@ -27,11 +27,12 @@ namespace Core
             _ufoController = ufoController;
             _scoreController = scoreController;
         }
-        
+
         public void Start(LevelConfig levelConfig)
         {
             _currentLevel = levelConfig;
-            _asteroidController.Start(levelConfig.AsteroidConfig);
+            if (_currentLevel.AsteroidsExistAlways)
+                _asteroidController.Start(levelConfig.AsteroidConfig);
             _menuPresenter.Show(StartGame);
         }
 
@@ -52,6 +53,8 @@ namespace Core
             _playerPresenter.Show(_scoreController);
             _ufoController.SetTarget(player.Transform);
             _ufoController.Start(_currentLevel.UfoConfig);
+            if (!_currentLevel.AsteroidsExistAlways)
+                _asteroidController.Start(_currentLevel.AsteroidConfig);
         }
 
         private void OnPlayerDied(IUnit unit)
@@ -60,6 +63,8 @@ namespace Core
             _playerPresenter.Hide();
             _scoreController.Stop();
             _ufoController.Stop();
+            if (!_currentLevel.AsteroidsExistAlways)
+                _asteroidController.Stop();
             _menuPresenter.Show(StartGame, _scoreController.Score);
         }
     }

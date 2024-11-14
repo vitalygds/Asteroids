@@ -39,3 +39,4 @@ MonoBehaviour:
     - _unitId: Ship
       _value: 0
     _perSecondValue: 1
+  _asteroidsExistAlways: 1
