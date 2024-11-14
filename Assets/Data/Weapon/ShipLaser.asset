@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2015374dbc494dbfa81df20c40b7de49, type: 3}
   m_Name: ShipLaser
   m_EditorClassIdentifier: 
-  _reloadTime: 0
+  _reloadTime: 1
   _lenght: 30
   _width: 0.2
   _chargeTime: 5
