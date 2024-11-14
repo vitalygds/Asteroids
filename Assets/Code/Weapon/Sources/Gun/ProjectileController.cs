@@ -30,7 +30,6 @@ namespace Weapon
         public void Destroy()
         {
             _view.OnTriggered -= CheckTarget;
-            OnDestroy?.Invoke(this);
         }
 
         public void Update(float deltaTime)
@@ -39,16 +38,24 @@ namespace Weapon
             _lifeTime -= deltaTime;
             if (_lifeTime <= 0f)
             {
-                _lifeTime = float.PositiveInfinity;
-                Destroy();
+                DestroyProjectile();
             }
+        }
+
+        private void DestroyProjectile()
+        {
+            _lifeTime = float.PositiveInfinity;
+            OnDestroy?.Invoke(this);
         }
 
         private void CheckTarget(Collider2D other)
         {
             if (other.transform.TryGetComponent(out IDamageableView damageable))
             {
-                _damageMediator.ApplyDamage(damageable, _owner);
+                if (_damageMediator.ApplyDamage(damageable, _owner))
+                {
+                    DestroyProjectile();
+                }
             }
         }
     }

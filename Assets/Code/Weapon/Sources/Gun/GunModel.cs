@@ -52,6 +52,7 @@ namespace Weapon
         private void ReleaseController(ProjectileController controller)
         {
             controller.OnDestroy -= RemoveController;
+            controller.Destroy();
             _poolService.Destroy(controller.View.gameObject);
         }
 
