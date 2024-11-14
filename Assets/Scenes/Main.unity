@@ -2230,6 +2230,10 @@ PrefabInstance:
       value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 3221114653584446731, guid: 743206f0dda0dfa4ca510f3fb348747d, type: 3}
+      propertyPath: m_text
+      value: 'Score:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3221114653584446731, guid: 743206f0dda0dfa4ca510f3fb348747d, type: 3}
       propertyPath: m_fontSize
       value: 24
       objectReference: {fileID: 0}

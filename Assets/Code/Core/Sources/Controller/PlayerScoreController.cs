@@ -51,6 +51,7 @@ namespace Core
         {
             if (_started)
                 return;
+            _started = true;
             _playerId = player.Id;
             _playerTransform = player.Transform;
             _playerMoveComponent = player.GetComponent<IMoveComponent>();
