@@ -26,8 +26,7 @@ namespace UI
         {
             _score.text = _viewModel.Score.ToString();
             _coords.text = $"{_viewModel.Position.x:F2}x{_viewModel.Position.y:F2}";
-            Vector3 angles = _viewModel.Rotation.eulerAngles;
-            _angles.text = $"{angles.x:F2}x{angles.y:F2}";
+            _angles.text = $"{_viewModel.Rotation.eulerAngles.z:F2}\u00b0";
             _speed.text = _viewModel.Speed.ToString("F2");
             _weaponCharges.text = $"{_viewModel.WeaponCharges}/{_viewModel.WeaponMaxCharges}";
             _chargeTime.text = _viewModel.ChargeTime.ToString("F2");
