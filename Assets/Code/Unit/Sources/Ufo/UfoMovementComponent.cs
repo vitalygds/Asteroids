@@ -52,14 +52,14 @@ namespace Unit
 
         private void Accelerate(float deltaTime)
         {
-            _currentSpeed += deltaTime * _config.Deceleration;
+            _currentSpeed += deltaTime * _config.Acceleration;
             if (_currentSpeed > _config.MaxSpeed)
                 _currentSpeed = _config.MaxSpeed;
         }
 
         private void Decelerate(float deltaTime)
         {
-            _currentSpeed -= deltaTime * _config.Acceleration;
+            _currentSpeed -= deltaTime * _config.Deceleration;
             if (_currentSpeed < 0f)
                 _currentSpeed = 0f;
         }

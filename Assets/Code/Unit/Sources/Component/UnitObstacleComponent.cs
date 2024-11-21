@@ -1,3 +1,4 @@
+using Infrastructure;
 using UnityEngine;
 
 namespace Unit
@@ -25,7 +26,7 @@ namespace Unit
 
         private void CheckTarget(Collider2D other)
         {
-            if (_layerMask == (_layerMask | 1 << other.gameObject.layer))
+            if (other.gameObject.IsLayerOfMask(_layerMask))
             {
                 if (other.gameObject.TryGetComponent(out UnitView view))
                 {

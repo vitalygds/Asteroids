@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace Infrastructure.Extensions
+namespace Infrastructure
 {
     public static class ListExtensions
     {

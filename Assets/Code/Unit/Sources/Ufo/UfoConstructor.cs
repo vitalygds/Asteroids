@@ -56,8 +56,7 @@ namespace Unit
                 targetComponent.SetWeapon(weapon);
             }
 
-            IDestroyComponent destroyComponent = new DestroyComponent(unit);
-            unit.AddComponent(destroyComponent);
+            unit.AddComponent(new DestroyComponent(unit));
             _manager.AddUnit(unit);
             return unit;
         }

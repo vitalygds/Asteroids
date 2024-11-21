@@ -49,9 +49,7 @@ namespace Unit
                 attackComponent.AddWeapon(weapon);
             }
 
-            ShipMoveComponent moveComponent = new ShipMoveComponent(config, view.transform, _tickController);
-            unit.AddComponent(moveComponent);
-
+            unit.AddComponent(new ShipMoveComponent(config, view.transform, _tickController));
             unit.AddComponent(new DestroyComponent(unit));
 
             _manager.AddUnit(unit);
