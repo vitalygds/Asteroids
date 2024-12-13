@@ -1,15 +1,15 @@
+using VContainer;
+
 namespace Infrastructure
 {
     public sealed class InfrastructureScope
     {
-        public static void Build(IServiceLocator locator)
+        public static void Build(IContainerBuilder builder)
         {
-            TimeManager timeManager = new TimeManager();
-            locator.Register<ITimeManager>(timeManager);
-            TickController tickController = new TickController(timeManager);
-            locator.Register<ITickController>(tickController);
-            locator.Register<IPoolService>(new PoolService(tickController));
-            locator.Register<IRandomizer>(new Randomizer());
+            builder.Register<ITickController, TickController>(Lifetime.Singleton);
+            builder.Register<ITimeManager, TimeManager>(Lifetime.Singleton);
+            builder.Register<IPoolService, PoolService>(Lifetime.Singleton);
+            builder.Register<IRandomizer, Randomizer>(Lifetime.Singleton);
         }
     }
 }

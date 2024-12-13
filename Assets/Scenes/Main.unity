@@ -509,6 +509,7 @@ GameObject:
   m_Component:
   - component: {fileID: 360648186}
   - component: {fileID: 360648185}
+  - component: {fileID: 360648187}
   m_Layer: 0
   m_Name: Bootstrapper
   m_TagString: Untagged
@@ -528,10 +529,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 732dbe9272244946b01154572a9e4d66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eventSystem: {fileID: 657179208}
-  _inputModule: {fileID: 657179207}
-  _interface: {fileID: 827773752}
-  _fieldViewProvider: {fileID: 827773754}
   _startLevel: {fileID: 11400000, guid: 4197baf45167ab24f88a47cdadfd4b40, type: 2}
 --- !u!4 &360648186
 Transform:
@@ -549,6 +546,27 @@ Transform:
   - {fileID: 657179209}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &360648187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360648184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63991bb425594eb480e0237bd6714caf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentReference:
+    TypeName: 
+  autoRun: 0
+  autoInjectGameObjects:
+  - {fileID: 360648184}
+  _eventSystem: {fileID: 657179208}
+  _inputModule: {fileID: 657179207}
+  _interface: {fileID: 827773752}
+  _fieldViewProvider: {fileID: 827773754}
 --- !u!1001 &397200664
 PrefabInstance:
   m_ObjectHideFlags: 0

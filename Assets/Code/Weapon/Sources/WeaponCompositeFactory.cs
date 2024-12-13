@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Weapon
 {
-    internal sealed class WeaponCompositeFactory : IWeaponFactory
+    internal sealed class WeaponCompositeFactory : IWeaponCompositeFactory
     {
         private readonly Dictionary<WeaponType, IWeaponFactory> _factoryMap;
         public WeaponType Type => WeaponType.None;
@@ -10,7 +10,6 @@ namespace Weapon
         public WeaponCompositeFactory(IReadOnlyList<IWeaponFactory> factories)
         {
             _factoryMap = new Dictionary<WeaponType, IWeaponFactory>(factories.Count);
-
             for (int i = 0; i < factories.Count; i++)
             {
                 IWeaponFactory weaponFactory = factories[i];

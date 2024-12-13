@@ -4,9 +4,9 @@ namespace Weapon
     {
         private readonly WeaponUpdateManager _updateManager;
         private readonly IWeaponConfigLoader _configLoader;
-        private readonly IWeaponFactory _factory;
+        private readonly IWeaponCompositeFactory _factory;
 
-        public WeaponService(WeaponUpdateManager updateManager, IWeaponConfigLoader configLoader, IWeaponFactory factory)
+        public WeaponService(WeaponUpdateManager updateManager, IWeaponConfigLoader configLoader, IWeaponCompositeFactory factory)
         {
             _updateManager = updateManager;
             _configLoader = configLoader;

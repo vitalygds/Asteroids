@@ -1,16 +1,12 @@
-using Infrastructure;
-using UnityEngine.InputSystem.UI;
+using VContainer;
 
 namespace Input
 {
     public sealed class InputScope
     {
-        public static void Build(IServiceLocator locator)
+        public static void Build(IContainerBuilder builder)
         {
-            InputSystemUIInputModule inputModule = locator.Resolve<InputSystemUIInputModule>();
-            ITickController tickController = locator.Resolve<ITickController>();
-            InputService inputService = new InputService(inputModule, tickController);
-            locator.Register<IInputService>(inputService);
+            builder.Register<IInputService, InputService>(Lifetime.Singleton);
         }
     }
 }
